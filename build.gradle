@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'io.swagger'
+version = '1.0.0'
+
+description = """kotlin-client-retrofit2-swagger-codegen"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+configurations.all {
+}
+
+repositories {
+    maven { url "https://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compileOnly group: 'io.swagger.codegen.v3', name: 'swagger-codegen', version: '3.0.8'
+    compileOnly group: 'io.swagger.codegen.v3', name: 'swagger-codegen-generators', version: '1.0.8'
+}
+
+//packaging tests
+task packageTests(type: Jar) {
+    from sourceSets.test.output
+    classifier = 'tests'
+}
+
+artifacts.archives packageTests
