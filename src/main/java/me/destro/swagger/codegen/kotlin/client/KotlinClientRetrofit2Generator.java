@@ -1,10 +1,9 @@
 package me.destro.swagger.codegen.kotlin.client;
 
-import io.swagger.codegen.CodegenType;
-import io.swagger.codegen.SupportingFile;
-import io.swagger.codegen.languages.AbstractKotlinCodegen;
+import io.swagger.codegen.v3.CodegenType;
+import io.swagger.codegen.v3.SupportingFile;
+import io.swagger.codegen.v3.generators.kotlin.AbstractKotlinCodegen;
 
-import java.util.*;
 import java.io.File;
 
 @SuppressWarnings("unused")
@@ -105,6 +104,11 @@ public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
                 "myFile.sample")                                          // the output file
         );
 
+    }
+
+    @Override
+    public String getDefaultTemplateDir() {
+        return templateDir;
     }
 
 }
