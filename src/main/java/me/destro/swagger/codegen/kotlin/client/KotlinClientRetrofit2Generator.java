@@ -90,15 +90,6 @@ public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
         modelPackage = packageName + ".model";
 
         /*
-          Reserved words.  Override this with reserved words specific to your language
-         */
-        reservedWords = new HashSet<>(
-                Arrays.asList(
-                        "sample1",  // replace with static values
-                        "sample2")
-        );
-
-        /*
           Additional Properties.  These values can be passed to the templates and
           are available in models, apis, and supporting files
          */
@@ -114,15 +105,6 @@ public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
                 "myFile.sample")                                          // the output file
         );
 
-        /*
-          Language Specific Primitives.  These types will not trigger imports by
-          the client generator
-         */
-        languageSpecificPrimitives = new HashSet<>(
-                Arrays.asList(
-                        "Type1",      // replace these with your types
-                        "Type2")
-        );
     }
 
 }
