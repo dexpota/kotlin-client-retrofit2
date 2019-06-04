@@ -1,17 +1,19 @@
 package me.destro.swagger.codegen.kotlin.client;
 
-import io.swagger.codegen.v3.*;
-import io.swagger.codegen.v3.generators.DefaultCodegenConfig;
+import io.swagger.codegen.CodegenType;
+import io.swagger.codegen.SupportingFile;
+import io.swagger.codegen.languages.AbstractKotlinCodegen;
 
 import java.util.*;
 import java.io.File;
 
 @SuppressWarnings("unused")
-public class KotlinClientRetrofit2Generator extends DefaultCodegenConfig {
+public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
 
     // source folder where to write the files
     protected String sourceFolder = "src";
     protected String apiVersion = "1.0.0";
+
 
     /**
      * Configures the type of generator.
@@ -40,14 +42,14 @@ public class KotlinClientRetrofit2Generator extends DefaultCodegenConfig {
      * @return A string value for the help message
      */
     public String getHelp() {
-        return "Generates a kotlin-client-retrofit2 client library.";
+        return "Generates a kotlin client library which uses Retrofit2";
     }
 
     public KotlinClientRetrofit2Generator() {
         super();
 
         // set the output folder here
-        outputFolder = "generated-code/kotlin-client-retrofit2";
+        outputFolder = "generated-code" + File.separator + "kotlin-client-retrofit2";
 
         /*
           Models.  You can write model files using the modelTemplateFiles map.
@@ -75,15 +77,17 @@ public class KotlinClientRetrofit2Generator extends DefaultCodegenConfig {
          */
         templateDir = "kotlin-client-retrofit2";
 
+        packageName = "io.swagger.client";
+
         /*
           Api Package.  Optional, if needed, this can be used in templates
          */
-        apiPackage = "io.swagger.client.api";
+        apiPackage = packageName + ".api";
 
         /*
           Model Package.  Optional, if needed, this can be used in templates
          */
-        modelPackage = "io.swagger.client.model";
+        modelPackage = packageName + ".model";
 
         /*
           Reserved words.  Override this with reserved words specific to your language
@@ -121,46 +125,4 @@ public class KotlinClientRetrofit2Generator extends DefaultCodegenConfig {
         );
     }
 
-    /**
-     * Escapes a reserved word as defined in the `reservedWords` array. Handle escaping
-     * those terms here.  This logic is only called if a variable matches the reserved words
-     *
-     * @return the escaped term
-     */
-    @Override
-    public String escapeReservedWord(String name) {
-        return "_" + name;  // add an underscore to the name
-    }
-
-    /**
-     * Location to write model files.  You can use the modelPackage() as defined when the class is
-     * instantiated
-     */
-    public String modelFileFolder() {
-        return outputFolder + "/" + sourceFolder + "/" + modelPackage().replace('.', File.separatorChar);
-    }
-
-    /**
-     * Location to write api files.  You can use the apiPackage() as defined when the class is
-     * instantiated
-     */
-    @Override
-    public String apiFileFolder() {
-        return outputFolder + "/" + sourceFolder + "/" + apiPackage().replace('.', File.separatorChar);
-    }
-
-    @Override
-    public String getArgumentsLocation() {
-        return null;
-    }
-
-    @Override
-    protected String getTemplateDir() {
-        return templateDir;
-    }
-
-    @Override
-    public String getDefaultTemplateDir() {
-        return templateDir;
-    }
 }
