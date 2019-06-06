@@ -1,0 +1,33 @@
+plugins {
+    id 'org.hidetake.swagger.generator' version '2.18.1'
+    id 'java'
+}
+
+group 'io.swagger'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    swaggerCodegen 'io.swagger.codegen.v3:swagger-codegen-cli:3.0.5'
+    swaggerCodegen project(":generator")
+}
+
+swaggerSources*.code*.dependsOn 'kotlin-client-retrofit2:generator:jar'
+
+build.dependsOn generateSwaggerCode
+
+swaggerSources {
+    petstore {
+        // http://petstore.swagger.io/v2/swagger.json
+        inputFile = file('swagger.json')
+        code {
+            language = 'me.destro.swagger.codegen.kotlin.KotlinClientRetrofit2Generator'
+        }
+    }
+}

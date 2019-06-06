@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group 'io.swagger'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven { url "https://repo.maven.apache.org/maven2" }
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compileOnly group: 'io.swagger.codegen.v3', name: 'swagger-codegen', version: '3.0.8'
+    compileOnly group: 'io.swagger.codegen.v3', name: 'swagger-codegen-generators', version: '1.0.8'
+}

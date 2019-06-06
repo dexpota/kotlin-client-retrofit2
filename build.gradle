@@ -1,7 +1,3 @@
-plugins {
-    id 'org.hidetake.swagger.generator' version '2.18.1'
-}
-
 apply plugin: 'java'
 apply plugin: 'maven'
 
@@ -20,34 +16,14 @@ configurations.all {
 }
 
 repositories {
-    maven { url "https://repo.maven.apache.org/maven2" }
     jcenter()
 }
 
-dependencies {
-    swaggerCodegen 'io.swagger.codegen.v3:swagger-codegen-cli:3.0.5'
-    swaggerCodegen project
-
-    compileOnly group: 'io.swagger.codegen.v3', name: 'swagger-codegen', version: '3.0.8'
-    compileOnly group: 'io.swagger.codegen.v3', name: 'swagger-codegen-generators', version: '1.0.8'
-}
-
-swaggerSources*.code*.dependsOn 'kotlin-client-retrofit2:jar'
-build.dependsOn generateSwaggerCode
 
 //packaging tests
 task packageTests(type: Jar) {
     from sourceSets.test.output
     classifier = 'tests'
-}
-
-swaggerSources {
-    petstore {
-        inputFile = file('swagger.json')
-        code {
-            language = 'me.destro.swagger.codegen.kotlin.client.KotlinClientRetrofit2Generator'
-        }
-    }
 }
 
 artifacts.archives packageTests

@@ -1,4 +1,4 @@
-package me.destro.swagger.codegen.kotlin.client;
+package me.destro.swagger.codegen.kotlin;
 
 import io.swagger.codegen.v3.CodegenType;
 import io.swagger.codegen.v3.SupportingFile;
