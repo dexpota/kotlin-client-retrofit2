@@ -33,8 +33,8 @@ swaggerSources {
         // http://petstore.swagger.io/v2/swagger.json
         inputFile = file('swagger.json')
         code {
-            //language = 'me.destro.swagger.codegen.kotlin.KotlinClientRetrofit2Generator'
-            language = 'java'
+            language = 'me.destro.swagger.codegen.kotlin.KotlinClientRetrofit2Generator'
+            //language = 'java'
         }
     }
 }

@@ -59,7 +59,7 @@ public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
          */
         modelTemplateFiles.put(
                 "model.mustache", // the template to use
-                ".sample");       // the extension for each file to write
+                ".kt");       // the extension for each file to write
 
         /*
           Api classes.  You can write classes for each Api file with the apiTemplateFiles map.
