@@ -1,8 +1,11 @@
 package me.destro.swagger.codegen.kotlin;
 
+import io.swagger.codegen.v3.CodegenConstants;
 import io.swagger.codegen.v3.CodegenType;
 import io.swagger.codegen.v3.SupportingFile;
 import io.swagger.codegen.v3.generators.kotlin.AbstractKotlinCodegen;
+import io.swagger.codegen.v3.templates.TemplateEngine;
+import me.destro.swagger.codegen.kotlin.templates.HandlebarTemplateEngine;
 
 import java.io.File;
 
@@ -13,6 +16,10 @@ public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
     protected String sourceFolder = "src";
     protected String apiVersion = "1.0.0";
 
+    @Override
+    public TemplateEngine getTemplateEngine() {
+        return new HandlebarTemplateEngine(this);
+    }
 
     /**
      * Configures the type of generator.
@@ -68,7 +75,7 @@ public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
          */
         apiTemplateFiles.put(
                 "api.mustache",   // the template to use
-                ".sample");       // the extension for each file to write
+                ".kt");       // the extension for each file to write
 
         /*
           Template Location.  This is the location which templates will be read from.  The generator

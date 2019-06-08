@@ -1,28 +1,61 @@
+{{>licenseInfo}}
+package {{apiPackage}}
 
-# This is a sample api mustache template.  It is representing a ficticous 
-# language and won't be usable or compile to anything without lots of changes.
-# Use it as an example.  You can access the variables in the generator object
-# like such:
+{{#imports}}import {{import}}
+{{/imports}}
 
-# use the package from the `apiPackage` variable
-package: {{package}}
+import io.reactivex.Completable
+import io.reactivex.Single
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Body
+import retrofit2.http.Query
+import retrofit2.http.Path
+import retrofit2.http.Headers
 
-# operations block
 {{#operations}}
-classname: {{classname}}
-
-# loop over each operation in the API:
+interface {{classname}} {
 {{#operation}}
+    {{#contents}}
+    /**
+    * {{summary}}
+    * {{notes}}
+    {{#parameters}}* @param {{paramName}} {{description}} {{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
+    {{/parameters}}* @return {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}
+    */
 
-# each operation has an `operationId`:
-operationId: {{operationId}}
+    {{#hasHeaderParams}}
+    @Headers(
+    {{#hasFormParams}}
+        "Content-Type: multipart/form-data",
+    {{/hasFormParams}}
+    {{#headerParams}}
+        "{{baseName}}: {{paramName}}"{{#hasMore}},{{/hasMore}}
+    {{/headerParams}}
+    )
+    {{/hasHeaderParams}}
 
-# and parameters:
-{{#allParams}}
-{{paramName}}: {{dataType}}
-{{/allParams}}
+    @{{upper httpMethod}}("{{path}}")
+    fun {{operationId}}(
+        {{#pathParams}}
+        @Path("{{baseName}}") {{paramName}}: {{{dataType}}}{{#hasMore}},{{/hasMore}}
+        {{/pathParams}}
+        {{#hasBodyParam}}
+        {{#bodyParams}}
+        @Body {{paramName}}: {{{dataType}}}{{#hasMore}},{{/hasMore}}
+        {{/bodyParams}}
+        {{/hasBodyParam}}
+        {{#hasQueryParams}}
+        {{#queryParams}}
+        @Query("{{baseName}}") {{paramName}}: {{{dataType}}}{{#hasMore}},{{/hasMore}}
+        {{/queryParams}}
+        {{/hasQueryParams}}
+        {{#parameters}}{{paramName}}: {{{dataType}}}{{#hasMore}},{{/hasMore}}{{/parameters}}
+    ) : {{#returnType}}Single<{{{returnType}}}>{{/returnType}}{{^returnType}}Completable{{/returnType}}
 
+    {{/contents}}
 {{/operation}}
-
-# end of operations block
+}
 {{/operations}}
