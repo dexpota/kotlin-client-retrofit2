@@ -13,6 +13,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Body
 import retrofit2.http.Query
 import retrofit2.http.Path
+import retrofit2.http.Header
 import retrofit2.http.Headers
 
 {{#operations}}
@@ -25,29 +26,14 @@ interface {{classname}} {
     {{#parameters}}* @param {{paramName}} {{description}} {{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
     {{/parameters}}* @return {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}
     */
-
     {{#hasFormParams}}
     @Headers("Content-Type: multipart/form-data")
     {{/hasFormParams}}
     @{{upper httpMethod}}("{{path}}")
     fun {{operationId}}(
-        {{#headerParams}}
-        @Header("{{baseName}}") {{paramName}}: {{{dataType}}}{{#hasMore}},{{/hasMore}}
-        {{/headerParams}}
-        {{#pathParams}}
-        @Path("{{baseName}}") {{paramName}}: {{{dataType}}}{{#hasMore}},{{/hasMore}}
-        {{/pathParams}}
-        {{#hasQueryParams}}
-        {{#queryParams}}
-        @Query("{{baseName}}") {{paramName}}: {{{dataType}}}{{#hasMore}},{{/hasMore}}
-        {{/queryParams}}
-        {{/hasQueryParams}}
-        {{#hasBodyParam}}
-        {{#bodyParams}}
-        @Body {{paramName}}: {{{dataType}}}{{#hasMore}},{{/hasMore}}
-        {{/bodyParams}}
-        {{/hasBodyParam}}
-        {{#parameters}}{{paramName}}: {{{dataType}}}{{#hasMore}},{{/hasMore}}{{/parameters}}
+        {{#allParams}}
+            {{annotation this}} {{paramName}}: {{{dataType}}}{{#hasMore}},{{/hasMore}}
+        {{/allParams}}
     ) : {{#returnType}}Single<{{{returnType}}}>{{/returnType}}{{^returnType}}Completable{{/returnType}}
 
     {{/contents}}
