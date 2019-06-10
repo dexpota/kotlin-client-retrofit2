@@ -10,6 +10,18 @@ version '1.0.0'
 
 sourceCompatibility = 1.8
 
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -25,9 +37,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
-swaggerSources*.code*.dependsOn 'kotlin-client-retrofit2:generator:jar'
-
-build.dependsOn generateSwaggerCode
+//build.dependsOn generateSwaggerCode
 
 swaggerSources {
     petstore {
@@ -35,12 +45,18 @@ swaggerSources {
         inputFile = file('swagger.json')
         code {
             language = 'me.destro.swagger.codegen.kotlin.KotlinClientRetrofit2Generator'
+            dependsOn ':generator:jar'
+
+
+            outputs.upToDateWhen {
+                project(":generator").tasks.findByName("jar").state.getUpToDate()
+            }
         }
     }
 }
 
 // Configure compile task dependency and source
-compileJava.dependsOn swaggerSources.petstore.code
+//compileJava.dependsOn swaggerSources.petstore.code
 
 sourceSets.main.java.srcDir "${swaggerSources.petstore.code.outputDir}/src/main/kotlin"
 sourceSets.main.resources.srcDir "${swaggerSources.petstore.code.outputDir}/src/main/resources"
@@ -49,15 +65,5 @@ idea {
     module {
         // Marks the already(!) added srcDir as "generated"
         generatedSourceDirs += file("${swaggerSources.petstore.code.outputDir}/src/main/kotlin")
-    }
-}
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
     }
 }

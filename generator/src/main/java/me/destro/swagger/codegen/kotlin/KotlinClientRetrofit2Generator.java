@@ -14,7 +14,7 @@ public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
 
     // source folder where to write the files
     protected String sourceFolder = "src";
-    protected String apiVersion = "1.0.0";
+    protected String apiVersion = "0.1.0";
 
     public KotlinClientRetrofit2Generator() {
         super();
