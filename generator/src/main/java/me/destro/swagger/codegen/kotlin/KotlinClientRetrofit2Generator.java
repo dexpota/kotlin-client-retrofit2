@@ -1,11 +1,11 @@
 package me.destro.swagger.codegen.kotlin;
 
-import io.swagger.codegen.v3.CodegenConstants;
+import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.helper.StringHelpers;
 import io.swagger.codegen.v3.CodegenType;
 import io.swagger.codegen.v3.SupportingFile;
 import io.swagger.codegen.v3.generators.kotlin.AbstractKotlinCodegen;
-import io.swagger.codegen.v3.templates.TemplateEngine;
-import me.destro.swagger.codegen.kotlin.templates.HandlebarTemplateEngine;
+import me.destro.swagger.codegen.kotlin.helpers.Retrofit2Helpers;
 
 import java.io.File;
 
@@ -15,41 +15,6 @@ public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
     // source folder where to write the files
     protected String sourceFolder = "src";
     protected String apiVersion = "1.0.0";
-
-    @Override
-    public TemplateEngine getTemplateEngine() {
-        return new HandlebarTemplateEngine(this);
-    }
-
-    /**
-     * Configures the type of generator.
-     *
-     * @return the CodegenType for this generator
-     * @see io.swagger.codegen.CodegenType
-     */
-    public CodegenType getTag() {
-        return CodegenType.CLIENT;
-    }
-
-    /**
-     * Configures a friendly name for the generator.  This will be used by the generator
-     * to select the library with the -l flag.
-     *
-     * @return the friendly name for the generator
-     */
-    public String getName() {
-        return "kotlin-client-retrofit2";
-    }
-
-    /**
-     * Returns human-friendly help for the generator.  Provide the consumer with help
-     * tips, parameters here
-     *
-     * @return A string value for the help message
-     */
-    public String getHelp() {
-        return "Generates a kotlin client library which uses Retrofit2";
-    }
 
     public KotlinClientRetrofit2Generator() {
         super();
@@ -111,6 +76,44 @@ public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
                 "myFile.sample")                                          // the output file
         );
 
+    }
+
+    /**
+     * Configures the type of generator.
+     *
+     * @return the CodegenType for this generator
+     * @see io.swagger.codegen.CodegenType
+     */
+    public CodegenType getTag() {
+        return CodegenType.CLIENT;
+    }
+
+    /**
+     * Configures a friendly name for the generator.  This will be used by the generator
+     * to select the library with the -l flag.
+     *
+     * @return the friendly name for the generator
+     */
+    public String getName() {
+        return "kotlin-client-retrofit2";
+    }
+
+    /**
+     * Returns human-friendly help for the generator.  Provide the consumer with help
+     * tips, parameters here
+     *
+     * @return A string value for the help message
+     */
+    public String getHelp() {
+        return "Generates a kotlin client library which uses Retrofit2";
+    }
+
+    @Override
+    public void addHandlebarHelpers(Handlebars handlebars) {
+        super.addHandlebarHelpers(handlebars);
+
+        StringHelpers.upper.registerHelper(handlebars);
+        Retrofit2Helpers.annotation.registerHelper(handlebars);
     }
 
     @Override
