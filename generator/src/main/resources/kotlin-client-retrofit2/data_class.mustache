@@ -10,7 +10,7 @@ import com.squareup.moshi.Json
  */
 data class {{classname}} (
 {{#requiredVars}}
-{{>data_class_req_var}}{{^@last}},{{/@last}}{{#@last}}{{#../../../vendorExtensions.x-has-required}}{{#../../../hasOptional}},{{/../../../hasOptional}}{{/../../../vendorExtensions.x-has-required}}{{/@last}}
+{{>data_class_req_var}}{{^@last}},{{/@last}}{{#@last}}{{#has ../../../this 'required'}}{{#../../../hasOptional}},{{/../../../hasOptional}}{{/has}}{{/@last}}
 {{/requiredVars}}
 {{#optionalVars}}
 {{>data_class_opt_var}}{{^@last}},{{/@last}}
