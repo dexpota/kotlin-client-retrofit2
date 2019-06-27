@@ -28,7 +28,7 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    swaggerCodegen 'io.swagger.codegen.v3:swagger-codegen-cli:3.0.5'
+    swaggerCodegen 'io.swagger.codegen.v3:swagger-codegen-cli:3.0.8'
     swaggerCodegen project(":generator")
 
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
@@ -42,7 +42,7 @@ dependencies {
 swaggerSources {
     petstore {
         // http://petstore.swagger.io/v2/swagger.json
-        inputFile = file('swagger.json')
+        inputFile = file('petstore.yaml')
         code {
             language = 'me.destro.swagger.codegen.kotlin.KotlinClientRetrofit2Generator'
             dependsOn ':generator:jar'
