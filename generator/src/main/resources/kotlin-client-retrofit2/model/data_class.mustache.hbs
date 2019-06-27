@@ -10,10 +10,10 @@ import com.squareup.moshi.Json
  */
 data class {{classname}} (
 {{#requiredVars}}
-{{>data_class_req_var}}{{^@last}},{{/@last}}{{#@last}}{{#has ../../../this 'required'}}{{#../../../hasOptional}},{{/../../../hasOptional}}{{/has}}{{/@last}}
+{{>model/data_class_req_var}}{{^@last}},{{/@last}}{{#@last}}{{#has ../../../this 'required'}}{{#../../../hasOptional}},{{/../../../hasOptional}}{{/has}}{{/@last}}
 {{/requiredVars}}
 {{#optionalVars}}
-{{>data_class_opt_var}}{{^@last}},{{/@last}}
+{{>model/data_class_opt_var}}{{^@last}},{{/@last}}
 {{/optionalVars}}
 ) {
 {{#hasEnums}}{{#vars}}{{#isEnum}}

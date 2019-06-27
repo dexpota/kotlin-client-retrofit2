@@ -30,7 +30,7 @@ public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
           a different extension
          */
         modelTemplateFiles.put(
-                "model.mustache", // the template to use
+                "model/model.mustache", // the template to use
                 ".kt");       // the extension for each file to write
 
         /*
@@ -39,7 +39,7 @@ public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
           class
          */
         apiTemplateFiles.put(
-                "api.mustache",   // the template to use
+                "api/api.mustache",   // the template to use
                 ".kt");       // the extension for each file to write
 
         /*

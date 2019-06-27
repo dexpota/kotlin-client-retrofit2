@@ -1,0 +1,12 @@
+{{>licenseInfo}}
+
+package {{modelPackage}}
+
+{{#imports}}import {{import}}
+{{/imports}}
+
+{{#models}}
+{{#model}}
+{{#isEnum}}{{>model/enum_class}}{{/isEnum}}{{^isEnum}}{{#isAlias}}typealias {{classname}} = {{dataType}}{{/isAlias}}{{^isAlias}}{{>model/data_class}}{{/isAlias}}{{/isEnum}}
+{{/model}}
+{{/models}}
