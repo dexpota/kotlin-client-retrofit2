@@ -30,7 +30,7 @@ public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
           a different extension
          */
         modelTemplateFiles.put(
-                "model/model.mustache", // the template to use
+                "model/model.hbs", // the template to use
                 ".kt");       // the extension for each file to write
 
         /*
@@ -39,7 +39,7 @@ public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
           class
          */
         apiTemplateFiles.put(
-                "api/api.mustache",   // the template to use
+                "api/api.hbs",   // the template to use
                 ".kt");       // the extension for each file to write
 
         /*
@@ -68,10 +68,10 @@ public class KotlinClientRetrofit2Generator extends AbstractKotlinCodegen {
 
         /*
           Supporting Files.  You can write single files for the generator with the
-          entire object tree available.  If the input file has a suffix of `.mustache
+          entire object tree available.  If the input file has a suffix of `.hbs
           it will be processed by the template engine.  Otherwise, it will be copied
          */
-        supportingFiles.add(new SupportingFile("myFile.mustache",   // the input template or file
+        supportingFiles.add(new SupportingFile("myFile.hbs",   // the input template or file
                 "",                                                       // the destination folder, relative `outputFolder`
                 "myFile.sample")                                          // the output file
         );
